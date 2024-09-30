@@ -23,4 +23,18 @@ function appendTd(tr, value) {
   newTd.innerText = value;
 
   tr.append(newTd);
+
+
+}
+
+function appendDeleteBtn(tr) {
+  let newTd = document.createElement('td');
+  newTd.innerText = 'X'; // Set the value as 'X' for the delete button
+
+  // Attach event listener for deleting the row on 'click'
+  newTd.addEventListener('click', function() {
+    tr.remove(); // Remove the entire row (tr) from the DOM
+  });
+
+  tr.append(newTd); // Append the 'td' to the table row
 }

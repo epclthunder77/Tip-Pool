@@ -55,4 +55,36 @@ describe("Test helpers' functionality", function() {
     });
   
   });
+  describe("Delete Button Test Suite", function() {
+  
+    let testTr;
+  
+    beforeEach(function() {
+      // Create a sample row for testing
+      testTr = document.createElement('tr');
+      appendDeleteBtn(testTr);
+      document.body.append(testTr); // Append the row to the DOM for testing
+    });
+  
+    afterEach(function() {
+      // Clean up after each test
+      testTr.remove();
+    });
+  
+    it("should append a delete button ('X') to the row", function() {
+      expect(testTr.children.length).toEqual(1); // One 'td' element should be appended
+      expect(testTr.children[0].innerText).toEqual('X'); // The content of the 'td' should be 'X'
+    });
+  
+    it("should remove the row from the DOM when 'X' is clicked", function() {
+      let deleteBtn = testTr.querySelector('td');
+      
+      // Simulate a click event
+      deleteBtn.click();
+  
+      // After clicking the 'X', the row should be removed
+      expect(document.body.contains(testTr)).toBe(false);
+    });
+  
+  });
   

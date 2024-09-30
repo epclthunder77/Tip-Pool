@@ -45,10 +45,11 @@ describe("Payment Form Test Suite", function() {
       let curPayment = allPayments['payment1'];
       let paymentRow = document.querySelector('#paymentTable tbody tr');
   
-      expect(paymentRow.children.length).toEqual(3); // Check if 3 columns were added to the row
+      expect(paymentRow.children.length).toEqual(4); // Check if 3 columns were added to the row
       expect(paymentRow.children[0].innerText).toEqual('$100'); // Bill amount
       expect(paymentRow.children[1].innerText).toEqual('$20'); // Tip amount
       expect(paymentRow.children[2].innerText).toEqual('20%'); // Tip percent
+      expect(paymentRow.children[3].innerText).toEqual('X') // Delete Button
     });
   
     it("should correctly update the summary", function() {
@@ -87,5 +88,39 @@ describe("Payment Form Test Suite", function() {
       summaryTds[1].innerHTML = '';
       summaryTds[2].innerHTML = '';
     });
+  });
+
+
+  describe("Delete Payment Test Suite", function() {
+  
+    beforeEach(function() {
+      // Reset before each test
+      billAmtInput.value = '100';
+      tipAmtInput.value = '20';
+      allPayments = {};
+      paymentId = 0;
+      paymentTbody.innerHTML = ''; // Clear table body before each test
+    });
+  
+    it("should add a delete button to the payment row", function() {
+      submitPaymentInfo(); // Submit a payment
+  
+      let paymentRow = document.querySelector('#paymentTable tbody tr');
+      let deleteBtn = paymentRow.querySelector('td:last-child'); // The last td should be the delete button
+  
+      expect(deleteBtn.innerText).toEqual('X'); // Ensure 'X' is added as delete button
+    });
+  
+    it("should remove the payment row from the table when delete button is clicked", function() {
+      submitPaymentInfo(); // Submit a payment
+  
+      let paymentRow = document.querySelector('#paymentTable tbody tr');
+      let deleteBtn = paymentRow.querySelector('td:last-child');
+  
+      deleteBtn.click(); // Simulate a click on the delete button
+  
+      expect(paymentTbody.contains(paymentRow)).toBe(false); // Ensure the row is removed
+    });
+    
   });
   
