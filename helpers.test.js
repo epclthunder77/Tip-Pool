@@ -32,15 +32,27 @@
 
 /// ABOVE SHOULD BE TESTED//////
 
-
-describe("THis test is for the helpers work right ", function()
-{
-    it("return a sum of the total payments", function()
-    {
-        allPayments = {}
-        sumPaymentTotal()
-    }
-    )
-
-}
-);
+describe("Test helpers' functionality", function() {
+  
+    // Test for calculating tip percentage
+    it("should correctly calculate the tip percentage", function() {
+      let tipPercent = calculateTipPercent(10000, 500); // billAmt: 10000, tipAmt: 500
+      expect(tipPercent).toEqual(5); // 500 is 5% of 10000
+    });
+  
+    // Test for summing payments (for a specific type)
+    it("should correctly return a sum of all payment types", function() {
+      allPayments = {
+        payment1: { billAmt: 10000, tipAmt: 500 },
+        payment2: { billAmt: 20000, tipAmt: 1000 },
+      };
+  
+      let totalTip = sumPaymentTotal('tipAmt'); // Summing up 'tipAmt' from all payments
+      expect(totalTip).toEqual(1500); // 500 + 1000 = 1500
+  
+      let totalBill = sumPaymentTotal('billAmt'); // Summing up 'billAmt'
+      expect(totalBill).toEqual(30000); // 10000 + 20000 = 30000
+    });
+  
+  });
+  
